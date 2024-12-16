@@ -11,6 +11,8 @@
 #include "remote.h"
 #include "sdkconfig.h"
 #include "wifi.h"
+#include "nvs_config.h"
+
 
 static const char* TAG = "main";
 int32_t isAnimating = 0;  // Initialize with a valid value
@@ -31,13 +33,15 @@ char brightness_url[256];
 // }
 
 void app_main(void) {
-  ESP_LOGI(TAG, "Hello world!");
+  ESP_LOGI(TAG, "Tronbyt Starting");
 
   // Setup the device flash storage.
   if (flash_initialize()) {
     ESP_LOGE(TAG, "failed to initialize flash");
     return;
   }
+  write_defaults_if_nvs_empty();
+
   esp_register_shutdown_handler(&flash_shutdown);
 
   // Setup the display.
@@ -78,7 +82,7 @@ void app_main(void) {
       ESP_LOGE(TAG, "Failed to get webp");
       vTaskDelay(pdMS_TO_TICKS(1 * 1000));
     } else {
-      if (brightness > -1 && brightness < 255) { 
+      if (brightness > -1 && brightness < 100) { 
         ESP_LOGI(TAG, "Set brightness to %i", brightness);
         display_set_brightness(brightness);
       }
