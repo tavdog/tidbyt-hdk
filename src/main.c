@@ -53,9 +53,10 @@ void app_main(void) {
     ESP_LOGW("URL", "Keyword 'next' not found in URL.");
   }
 
+  ESP_LOGW(TAG,"Main Loop Start");
   for (;;) {
-    ESP_LOGW(TAG,"Main Loop Start");
-
+    // implement later
+    // httpd_conn_poll(server, 10);  // Process HTTP requests
     uint8_t* webp;
     size_t len;
     static int brightness = DISPLAY_DEFAULT_BRIGHTNESS;
