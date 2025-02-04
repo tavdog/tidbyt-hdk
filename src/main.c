@@ -17,6 +17,61 @@ int32_t isAnimating = 5;  // Initialize with a valid value enough time for boot 
 int32_t app_dwell_secs = TIDBYT_REFRESH_INTERVAL_SECONDS;
 char brightness_url[256];
 
+// GPT HTTP SERVER CODE
+// #include "esp_http_server.h"
+// #include "esp_wifi.h"
+// #include "nvs_flash.h"
+// #include "driver/gpio.h"
+
+// #define WIFI_SSID "YOUR_SSID"
+// #define WIFI_PASS "YOUR_PASSWORD"
+// #define LED_GPIO GPIO_NUM_2
+
+// httpd_handle_t server = NULL;  // Global server handle
+
+// esp_err_t trigger_handler(httpd_req_t* req) {
+//   gpio_set_level(LED_GPIO, !gpio_get_level(LED_GPIO));  // Toggle LED
+//   httpd_resp_send(req, "OK", 2);
+//   return ESP_OK;
+// }
+
+// void start_server() {
+//   httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+//   httpd_start(&server, &config);
+//   httpd_uri_t trigger = {
+//       .uri = "/trigger", .method = HTTP_GET, .handler = trigger_handler};
+//   httpd_register_uri_handler(server, &trigger);
+// }
+
+// void wifi_init() {
+//   esp_netif_init();
+//   esp_event_loop_create_default();
+//   esp_netif_create_default_wifi_sta();
+//   wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+//   esp_wifi_init(&cfg);
+//   wifi_config_t wifi_config = {
+//       .sta = {.ssid = WIFI_SSID, .password = WIFI_PASS}};
+//   esp_wifi_set_mode(WIFI_MODE_STA);
+//   esp_wifi_set_config(WIFI_IF_STA, &wifi_config);
+//   esp_wifi_start();
+// }
+
+// void app_main() {
+//   nvs_flash_init();
+//   gpio_set_direction(LED_GPIO, GPIO_MODE_OUTPUT);
+//   wifi_init();
+//   start_server();
+
+//   // Main loop: Handle HTTP and other tasks
+//   for (;;) {
+//     httpd_conn_poll(server, 10);    // Process HTTP requests
+//     vTaskDelay(pdMS_TO_TICKS(10));  // Prevent watchdog resets
+
+//     // Your existing tasks
+//     ESP_LOGW("Main", "Loop running...");
+//   }
+// }
+
 void app_main(void) {
   ESP_LOGI(TAG, "Hello world!");
 
